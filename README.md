@@ -50,6 +50,12 @@ DocProcessor streamlines the RFQ (Request for Quote) workflow by:
 - Match line items → Vector similarity finds best SKU matches
 - Export CSV → Download enriched data with matched products
 
+## Demo Files
+
+Sample files are provided in `demo_files/` to test the application:
+- `invoice.pdf` - Sample RFQ document for parsing
+- `product-catalog.csv` - Sample product catalog for matching
+
 ## Requirements
 
 - Node.js (for frontend)
