@@ -1,0 +1,23 @@
+# FastAPI and ASGI server
+fastapi==0.116.1
+uvicorn[standard]==0.35.0
+python-multipart==0.0.14
+
+# Document parsing and AI
+llama-cloud-services
+llama-index
+openai==1.102.0
+
+# Data processing
+pandas<2.3.0
+
+# Pydantic for data validation
+pydantic==2.11.7
+pydantic-settings==2.8.0
+
+
+# HTTP and async
+httpx==0.28.1
+
+# Environment and configuration
+python-dotenv==1.1.1
