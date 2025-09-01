@@ -19,7 +19,7 @@ DocProcessor streamlines the RFQ (Request for Quote) workflow by:
 
 1. **Clone and setup**:
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/saminkhan1/DocProcessor.git
    cd DocProcessor
    ```
 
