@@ -56,6 +56,9 @@ Sample files are provided in `demo_files/` to test the application:
 - `invoice.pdf` - Sample RFQ document for parsing
 - `product-catalog.csv` - Sample product catalog for matching
 
+### Demo Video
+Watch the application in action: [RFQ Automation Demo](https://drive.google.com/file/d/1a9KiM0YpemuyH6kRl2khqREMayPyiJb6/view?usp=sharing)
+
 ## Requirements
 
 - Node.js (for frontend)
