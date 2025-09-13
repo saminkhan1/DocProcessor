@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Doc Processor Fullstack Startup Script
-# Launches both backend and frontend in separate terminals
+# Doc Processor Fullstack Startup Script (macOS)
+# Launches backend, frontend, and ngrok tunnel for backend
 
 echo "🚀 Starting Doc Processor Fullstack Application..."
 echo "================================================="
@@ -38,38 +38,18 @@ fi
 
 echo "✅ Start scripts found"
 
-# Function to detect terminal and launch commands
+# Function to launch commands in macOS Terminal
 launch_in_terminal() {
     local title="$1"
     local command="$2"
     local dir="$3"
-    
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        # macOS
-        osascript <<EOF
+
+    osascript <<EOF
 tell application "Terminal"
     do script "cd '$dir' && echo '🎯 $title' && $command"
     set custom title of front window to "$title"
 end tell
 EOF
-    elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        # Linux - try different terminal emulators
-        if command -v gnome-terminal &> /dev/null; then
-            gnome-terminal --title="$title" --working-directory="$dir" -- bash -c "echo '🎯 $title' && $command; exec bash"
-        elif command -v konsole &> /dev/null; then
-            konsole --title "$title" --workdir "$dir" -e bash -c "echo '🎯 $title' && $command; exec bash"
-        elif command -v xterm &> /dev/null; then
-            xterm -title "$title" -e "cd '$dir' && echo '🎯 $title' && $command; exec bash" &
-        else
-            echo "⚠️  No suitable terminal emulator found for Linux"
-            echo "   Please install gnome-terminal, konsole, or xterm"
-            exit 1
-        fi
-    else
-        echo "⚠️  Unsupported operating system: $OSTYPE"
-        echo "   This script supports macOS and Linux"
-        exit 1
-    fi
 }
 
 echo ""
@@ -82,12 +62,25 @@ sleep 2
 echo "🎯 Launching Frontend Development Server..."
 launch_in_terminal "Doc Processor Frontend" "./start.sh" "$FRONTEND_DIR"
 
+# Give frontend a moment to start
+sleep 1
+
+# Launch ngrok tunnel for backend
+echo ""
+echo "🎯 Launching ngrok tunnel for backend..."
+ngrok http --url=mammoth-stirring-remarkably.ngrok-free.app 8000 > /dev/null &
+NGROK_BACKEND_PID=$!
+
+echo "✅ ngrok tunnel started"
+echo "🔗 Backend Public URL: https://mammoth-stirring-remarkably.ngrok-free.app"
+
 echo ""
 echo "🎉 Fullstack application is starting!"
-echo "🔗 Backend API: http://localhost:8000"
-echo "🔗 Frontend App: http://localhost:8080"
-echo "📖 API Docs: http://localhost:8000/docs"
+echo "🔗 Backend API (local): http://localhost:8000"
+echo "🔗 Frontend App (local): http://localhost:8080"
+echo "📖 API Docs (local): http://localhost:8000/docs"
 echo ""
+echo "💡 Backend is publicly accessible via ngrok"
 echo "💡 Both services are running in separate terminal windows"
 echo "💡 Close those terminal windows to stop the services"
 echo "💡 Use Ctrl+C in each terminal to gracefully shut down"
